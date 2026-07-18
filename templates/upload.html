@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Logs</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="upload-container">
+
+        <div class="upload-card">
+
+            <h1>Upload Security Logs</h1>
+
+            <p>Select a log file to begin threat analysis.</p>
+
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+
+                <input
+                    type="file"
+                    name="logfile"
+                    accept=".txt,.log,.csv"
+                    required
+                >
+
+                <button type="submit">
+                    Upload & Analyze
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

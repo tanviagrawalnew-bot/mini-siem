@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <h2>SOC Sentinel</h2>
+
+        <ul>
+
+            <li><a href="/">🏠 Home</a></li>
+
+            <li><a href="/dashboard">📊 Dashboard</a></li>
+
+            <li><a href="/upload">📂 Upload Logs</a></li>
+
+            <li><a href="/reports">📑 Reports</a></li>
+
+        </ul>
+
+    </aside>
+
+    <main class="main-content">
+
+        <h1>Security Dashboard</h1>
+
+        <div class="cards">
+
+            <div class="card">
+                <h2>12,543</h2>
+                <p>Total Logs</p>
+            </div>
+
+            <div class="card">
+                <h2>8</h2>
+                <p>Alerts</p>
+            </div>
+
+            <div class="card">
+                <h2>3</h2>
+                <p>Critical Threats</p>
+            </div>
+
+            <div class="card">
+                <h2>99.9%</h2>
+                <p>System Health</p>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+<div class="dashboard-grid">
+
+    <div class="recent-alerts">
+
+        <h2>Recent Alerts</h2>
+
+        <table>
+
+            <tr>
+                <th>Time</th>
+                <th>Threat</th>
+                <th>Severity</th>
+            </tr>
+
+            <tr>
+                <td>09:45</td>
+                <td>Brute Force Login</td>
+                <td class="high">High</td>
+            </tr>
+
+            <tr>
+                <td>10:18</td>
+                <td>Suspicious IP</td>
+                <td class="medium">Medium</td>
+            </tr>
+
+            <tr>
+                <td>11:02</td>
+                <td>Multiple Failed Logins</td>
+                <td class="low">Low</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <div class="quick-actions">
+
+        <h2>Quick Actions</h2>
+
+        <a href="/upload" class="action-btn">📂 Upload Logs</a>
+
+        <a href="/reports" class="action-btn">📄 Generate Report</a>
+
+    </div>
+
+</div>
+<section class="bottom-section">
+
+    <div class="activity-panel">
+
+        <h2>Threat Activity</h2>
+
+        <div class="activity">
+
+            <div class="activity-item">
+                <span>09:15 AM</span>
+                <p>Brute Force Login detected from 192.168.1.21</p>
+            </div>
+
+            <div class="activity-item">
+                <span>10:42 AM</span>
+                <p>Multiple Failed Login Attempts</p>
+            </div>
+
+            <div class="activity-item">
+                <span>11:30 AM</span>
+                <p>Admin Login Successful</p>
+            </div>
+
+            <div class="activity-item">
+                <span>12:05 PM</span>
+                <p>Firewall Rule Updated</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="system-panel">
+
+        <h2>System Status</h2>
+
+        <div class="status-box">
+            <p>CPU Usage</p>
+            <strong>18%</strong>
+        </div>
+
+        <div class="status-box">
+            <p>Memory Usage</p>
+            <strong>43%</strong>
+        </div>
+
+        <div class="status-box">
+            <p>Disk Space</p>
+            <strong>71%</strong>
+        </div>
+
+        <div class="status-box">
+            <p>Network</p>
+            <strong style="color:#39ff88;">Healthy</strong>
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+
+</html>

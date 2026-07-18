@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Security Reports</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="reports-container">
+
+    <div class="reports-card">
+
+        <h1>Security Reports</h1>
+
+        <p>Generate and download SIEM analysis reports.</p>
+
+        <table>
+
+            <tr>
+                <th>Report</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>Threat Analysis</td>
+                <td class="green">Ready</td>
+            </tr>
+
+            <tr>
+                <td>Log Summary</td>
+                <td class="green">Ready</td>
+            </tr>
+
+            <tr>
+                <td>Incident Report</td>
+                <td class="green">Ready</td>
+            </tr>
+
+        </table>
+
+        <button>Generate PDF Report</button>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

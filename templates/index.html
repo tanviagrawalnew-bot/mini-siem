@@ -1,57 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOC Sentinel</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
 </head>
+
 <body>
-<nav>
 
-    <h2>SOC Sentinel</h2>
+    <!-- ================= NAVBAR ================= -->
 
-    <ul>
+    <nav class="navbar">
 
-        <li><a href="#">Home</a></li>
+        <div class="logo">
+            <span class="logo-icon">🛡</span>
+            <h2>SOC Sentinel</h2>
+        </div>
 
-        <li><a href="#">About</a></li>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/reports">Reports</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
 
-        <li><a href="#">Dashboard</a></li>
+        <a href="/dashboard" class="nav-btn">
+            Launch SIEM
+        </a>
 
-        <li><a href="#">Reports</a></li>
+    </nav>
 
-        <li><a href="#">Contact</a></li>
+    <!-- ================= HERO ================= -->
 
-    </ul>
+    <section class="hero">
 
-</nav>
-<!-- <section>
+        <div class="hero-text">
 
-    <h1>Security Information & Event Management</h1>
+            <h1>Security Information & Event Management</h1>
 
-    <p>
-        Monitor logs, detect threats, generate alerts and visualize security events in one place.
-    </p>
+            <p>
+                Monitor logs, detect threats, generate alerts and visualize security events in one place.
+            </p>
 
-    <button>Launch Dashboard</button>
+            <div class="hero-buttons">
 
-</section> -->
-<section class="hero">
+                <a href="/dashboard" class="primary-btn">
+                    Launch Dashboard
+                </a>
 
-    <div class="hero-text">
+                <a href="#features" class="secondary-btn">
+                    Explore Features
+                </a>
 
-        <h1>Security Information & Event Management</h1>
+            </div>
 
-        <p>
-            Monitor logs, detect threats, generate alerts and visualize security events in one place.
-        </p>
+        </div>
 
-        <button>Launch Dashboard</button>
+        <div class="hero-right">
 
+            <div class="status-card">
+
+                <h3>🛡 SOC STATUS</h3>
+
+                <div class="status-row">
+                    <span>System Health</span>
+                    <span class="green">ONLINE</span>
+                </div>
+
+                <div class="status-row">
+                    <span>Threat Level</span>
+                    <span class="red">LOW</span>
+                </div>
+
+                <div class="status-row">
+                    <span>Logs Processed</span>
+                    <span>12,543</span>
+                </div>
+
+                <div class="status-row">
+                    <span>Alerts Today</span>
+                    <span>8</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="features" id="features">
+
+        <h2>Core Features</h2>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <h3>📂 Log Collection</h3>
+                <p>Upload and organize system logs for centralized monitoring.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>🛡 Threat Detection</h3>
+                <p>Identify suspicious activities using predefined detection rules.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>🚨 Alert Management</h3>
+                <p>Generate severity-based alerts for security incidents.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>📊 Reports</h3>
+                <p>Create security reports for analysis and incident tracking.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>
+<section class="stats">
+
+    <div class="stat-box">
+        <h2>12K+</h2>
+        <p>Logs Processed</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>350+</h2>
+        <p>Threats Detected</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>99.9%</h2>
+        <p>System Uptime</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>24×7</h2>
+        <p>Monitoring</p>
     </div>
 
 </section>
-</body>
-</html>

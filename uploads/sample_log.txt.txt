@@ -1,0 +1,5 @@
+2026-07-18 10:15:22 INFO User login successful
+2026-07-18 10:17:41 WARNING Multiple failed login attempts
+2026-07-18 10:19:10 ERROR Unauthorized access detected
+2026-07-18 10:20:05 INFO Firewall rule updated
+2026-07-18 10:21:30 CRITICAL Brute force attack detected
