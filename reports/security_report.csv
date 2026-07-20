@@ -1,0 +1,16 @@
+Timestamp,Severity,Alert,IP Address,Username
+Mar 12 10:15:20,Medium,Failed Login Attempt,192.168.1.50,invalid
+Mar 12 10:15:22,Medium,Failed Login Attempt,192.168.1.50,invalid
+Mar 12 10:15:24,Medium,Failed Login Attempt,192.168.1.50,root
+Mar 12 10:15:26,Medium,Failed Login Attempt,192.168.1.50,root
+Mar 12 10:15:28,Medium,Failed Login Attempt,192.168.1.50,root
+Mar 12 10:15:30,Medium,Failed Login Attempt,192.168.1.50,root
+Mar 12 10:15:32,Medium,Failed Login Attempt,192.168.1.50,root
+Mar 12 10:15:34,Medium,Failed Login Attempt,192.168.1.50,root
+Mar 12 10:15:40,High,Root Login Detected,192.168.1.50,root
+Mar 12 10:20:05,Medium,Failed Login Attempt,10.0.0.20,user1
+Mar 12 10:20:07,Medium,Failed Login Attempt,10.0.0.20,user1
+Mar 12 10:20:09,Medium,Failed Login Attempt,10.0.0.20,user1
+Mar 12 10:21:00,Medium,Invalid User Login Attempt,172.16.0.5,
+Mar 12 10:21:02,Medium,Failed Login Attempt,172.16.0.5,invalid
+-,Critical,Possible Brute Force Attack,192.168.1.50,-

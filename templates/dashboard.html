@@ -42,17 +42,17 @@
         <div class="cards">
 
             <div class="card">
-                <h2>12,543</h2>
+                <h2>{{ total_logs }}</h2>
                 <p>Total Logs</p>
             </div>
 
             <div class="card">
-                <h2>8</h2>
+                <h2>{{ total_alerts }}</h2>
                 <p>Alerts</p>
             </div>
 
             <div class="card">
-                <h2>3</h2>
+                <h2>{{ critical_alerts }}</h2>
                 <p>Critical Threats</p>
             </div>
 
@@ -63,9 +63,7 @@
 
         </div>
 
-    </main>
-
-</div>
+    
 <div class="dashboard-grid">
 
     <div class="recent-alerts">
@@ -74,29 +72,39 @@
 
         <table>
 
-            <tr>
-                <th>Time</th>
-                <th>Threat</th>
-                <th>Severity</th>
-            </tr>
+          <thead>
 
-            <tr>
-                <td>09:45</td>
-                <td>Brute Force Login</td>
-                <td class="high">High</td>
-            </tr>
+<tr>
+    <th>Time</th>
+    <th>Threat</th>
+    <th>Severity</th>
+</tr>
 
-            <tr>
-                <td>10:18</td>
-                <td>Suspicious IP</td>
-                <td class="medium">Medium</td>
-            </tr>
+</thead>
 
-            <tr>
-                <td>11:02</td>
-                <td>Multiple Failed Logins</td>
-                <td class="low">Low</td>
-            </tr>
+<tbody>
+
+{% for alert in recent_alerts %}
+
+<tr>
+
+    <td>{{ alert[0] }}</td>
+
+    <td>{{ alert[1] }}</td>
+
+    {% if alert[2] == "Critical" or alert[2] == "High" %}
+    <td class="high">{{ alert[2] }}</td>
+{% elif alert[2] == "Medium" %}
+    <td class="medium">{{ alert[2] }}</td>
+{% else %}
+    <td class="low">{{ alert[2] }}</td>
+{% endif %}
+
+</tr>
+
+{% endfor %}
+
+</tbody>  
 
         </table>
 
@@ -110,6 +118,12 @@
 
         <a href="/reports" class="action-btn">📄 Generate Report</a>
 
+        <a href="/clear-history"
+       class="action-btn"
+       onclick="return confirm('Are you sure you want to clear all logs and alerts?')">
+        🗑️ Clear History
+    </a>
+
     </div>
 
 </div>
@@ -117,31 +131,34 @@
 
     <div class="activity-panel">
 
-        <h2>Threat Activity</h2>
+            <h2>Threat Activity</h2>
+    <div class="activity">
 
-        <div class="activity">
+    {% if recent_alerts %}
 
-            <div class="activity-item">
-                <span>09:15 AM</span>
-                <p>Brute Force Login detected from 192.168.1.21</p>
-            </div>
+        {% for alert in recent_alerts %}
 
-            <div class="activity-item">
-                <span>10:42 AM</span>
-                <p>Multiple Failed Login Attempts</p>
-            </div>
+        <div class="activity-item">
 
-            <div class="activity-item">
-                <span>11:30 AM</span>
-                <p>Admin Login Successful</p>
-            </div>
+            <span>{{ alert[0] }}</span>
 
-            <div class="activity-item">
-                <span>12:05 PM</span>
-                <p>Firewall Rule Updated</p>
-            </div>
+            <p>{{ alert[1] }}</p>
 
         </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="activity-item">
+
+            <p>No threat activity found.</p>
+
+        </div>
+
+    {% endif %}
+
+    </div>
 
     </div>
 
@@ -172,6 +189,10 @@
     </div>
 
 </section>
+
+</main>
+
+</div>
 
 </body>
 
