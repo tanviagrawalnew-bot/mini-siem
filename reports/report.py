@@ -1,6 +1,6 @@
 import csv
 
-# -----------------------FOR REPORT PDF-----------------------------------------------
+# ----------------------- CSV REPORT -----------------------
 
 def generate_report(alerts, filename="reports/security_report.csv"):
 
@@ -11,6 +11,7 @@ def generate_report(alerts, filename="reports/security_report.csv"):
         writer.writerow([
             "Timestamp",
             "Severity",
+            "Threat Score",
             "Alert",
             "IP Address",
             "Username"
@@ -22,6 +23,7 @@ def generate_report(alerts, filename="reports/security_report.csv"):
 
                 alert["timestamp"],
                 alert["severity"],
+                alert["score"],
                 alert["alert"],
                 alert["ip"],
                 alert["username"]
@@ -31,6 +33,7 @@ def generate_report(alerts, filename="reports/security_report.csv"):
     return filename
 
 
+# ----------------------- PDF REPORT -----------------------
 
 from reportlab.platypus import SimpleDocTemplate, Table
 from reportlab.lib import colors
@@ -38,20 +41,24 @@ from reportlab.lib import colors
 
 def generate_pdf(alerts, filename="reports/security_report.pdf"):
 
-    data = [["Timestamp", "Severity", "Alert", "IP", "Username"]]
+    data = [[
+        "Timestamp",
+        "Severity",
+        "Threat Score",
+        "Alert",
+        "IP",
+        "Username"
+    ]]
 
     for alert in alerts:
 
         data.append([
 
             alert["timestamp"],
-
             alert["severity"],
-
+            alert["score"],
             alert["alert"],
-
             alert["ip"],
-
             alert["username"]
 
         ])
@@ -62,13 +69,13 @@ def generate_pdf(alerts, filename="reports/security_report.pdf"):
 
     table.setStyle([
 
-        ("GRID", (0,0), (-1,-1), 1, colors.black),
+        ("GRID", (0, 0), (-1, -1), 1, colors.black),
 
-        ("BACKGROUND", (0,0), (-1,0), colors.grey),
+        ("BACKGROUND", (0, 0), (-1, 0), colors.grey),
 
-        ("TEXTCOLOR", (0,0), (-1,0), colors.white),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
 
-        ("ALIGN",(0,0),(-1,-1),"CENTER")
+        ("ALIGN", (0, 0), (-1, -1), "CENTER")
 
     ])
 

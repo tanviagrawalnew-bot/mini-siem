@@ -14,7 +14,6 @@
 </head>
 
 <body>
-
 <div class="dashboard">
 
     <aside class="sidebar">
@@ -63,134 +62,138 @@
 
         </div>
 
-    
-<div class="dashboard-grid">
+        <div class="dashboard-grid">
 
-    <div class="recent-alerts">
+            <div class="recent-alerts">
 
-        <h2>Recent Alerts</h2>
+                <h2>Recent Alerts</h2>
 
-        <table>
+                <table>
 
-          <thead>
+                    <thead>
 
-<tr>
-    <th>Time</th>
-    <th>Threat</th>
-    <th>Severity</th>
-</tr>
+                        <tr>
+                            <th>Time</th>
+                            <th>Threat</th>
+                            <th>Severity</th>
+                            <th>Threat Score</th>
+                        </tr>
 
-</thead>
+                    </thead>
 
-<tbody>
+                    <tbody>
 
-{% for alert in recent_alerts %}
+                        {% for alert in recent_alerts %}
 
-<tr>
+                        <tr>
 
-    <td>{{ alert[0] }}</td>
+                            <td>{{ alert[0] }}</td>
 
-    <td>{{ alert[1] }}</td>
+                            <td>{{ alert[1] }}</td>
 
-    {% if alert[2] == "Critical" or alert[2] == "High" %}
-    <td class="high">{{ alert[2] }}</td>
-{% elif alert[2] == "Medium" %}
-    <td class="medium">{{ alert[2] }}</td>
-{% else %}
-    <td class="low">{{ alert[2] }}</td>
-{% endif %}
+                            {% if alert[2] == "Critical" or alert[2] == "High" %}
+                                <td class="high">{{ alert[2] }}</td>
+                            {% elif alert[2] == "Medium" %}
+                                <td class="medium">{{ alert[2] }}</td>
+                            {% else %}
+                                <td class="low">{{ alert[2] }}</td>
+                            {% endif %}
 
-</tr>
+                            <td>{{ alert[3] }}</td>
 
-{% endfor %}
+                        </tr>
 
-</tbody>  
+                        {% endfor %}
 
-        </table>
+                    </tbody>
 
-    </div>
+                </table>
 
-    <div class="quick-actions">
+            </div>
 
-        <h2>Quick Actions</h2>
+            <div class="quick-actions">
 
-        <a href="/upload" class="action-btn">📂 Upload Logs</a>
+                <h2>Quick Actions</h2>
 
-        <a href="/reports" class="action-btn">📄 Generate Report</a>
+                <a href="/upload" class="action-btn">📂 Upload Logs</a>
 
-        <a href="/clear-history"
-       class="action-btn"
-       onclick="return confirm('Are you sure you want to clear all logs and alerts?')">
-        🗑️ Clear History
-    </a>
+                <a href="/reports" class="action-btn">📄 Generate Report</a>
 
-    </div>
+                <a href="/clear-history"
+                   class="action-btn"
+                   onclick="return confirm('Are you sure you want to clear all logs and alerts?')">
+                    🗑️ Clear History
+                </a>
 
-</div>
-<section class="bottom-section">
-
-    <div class="activity-panel">
-
-            <h2>Threat Activity</h2>
-    <div class="activity">
-
-    {% if recent_alerts %}
-
-        {% for alert in recent_alerts %}
-
-        <div class="activity-item">
-
-            <span>{{ alert[0] }}</span>
-
-            <p>{{ alert[1] }}</p>
+            </div>
 
         </div>
 
-        {% endfor %}
+        <section class="bottom-section">
 
-    {% else %}
+            <div class="activity-panel">
 
-        <div class="activity-item">
+                <h2>Threat Activity</h2>
 
-            <p>No threat activity found.</p>
+                <div class="activity">
 
-        </div>
+                    {% if recent_alerts %}
 
-    {% endif %}
+                        {% for alert in recent_alerts %}
 
-    </div>
+                        <div class="activity-item">
 
-    </div>
+                            <span>{{ alert[0] }}</span>
 
-    <div class="system-panel">
+                            <p>{{ alert[1] }}</p>
 
-        <h2>System Status</h2>
+                        </div>
 
-        <div class="status-box">
-            <p>CPU Usage</p>
-            <strong>18%</strong>
-        </div>
+                        {% endfor %}
 
-        <div class="status-box">
-            <p>Memory Usage</p>
-            <strong>43%</strong>
-        </div>
+                    {% else %}
 
-        <div class="status-box">
-            <p>Disk Space</p>
-            <strong>71%</strong>
-        </div>
+                        <div class="activity-item">
 
-        <div class="status-box">
-            <p>Network</p>
-            <strong style="color:#39ff88;">Healthy</strong>
-        </div>
+                            <p>No threat activity found.</p>
 
-    </div>
+                        </div>
 
-</section>
+                    {% endif %}
 
-</main>
+                </div>
+
+            </div>
+
+            <div class="system-panel">
+
+                <h2>System Status</h2>
+
+                <div class="status-box">
+                    <p>CPU Usage</p>
+                    <strong>18%</strong>
+                </div>
+
+                <div class="status-box">
+                    <p>Memory Usage</p>
+                    <strong>43%</strong>
+                </div>
+
+                <div class="status-box">
+                    <p>Disk Space</p>
+                    <strong>71%</strong>
+                </div>
+
+                <div class="status-box">
+                    <p>Network</p>
+                    <strong style="color:#39ff88;">Healthy</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
 
 </div>
 

@@ -1,18 +1,16 @@
 from collections import Counter
+from detection.scoring import get_threat_score
 
 
 def detect_threats(logs):
 
     alerts = []
-
     failed_ips = Counter()
 
     for log in logs:
 
         event = log["event"]
-
         ip = log["ip"]
-
         username = log["username"]
 
         # ---------------- Failed Login ----------------
@@ -23,6 +21,7 @@ def detect_threats(logs):
 
                 "timestamp": log["timestamp"],
                 "severity": "Medium",
+                "score": get_threat_score("Failed Login Attempt"),
                 "alert": "Failed Login Attempt",
                 "ip": ip,
                 "username": username
@@ -40,6 +39,7 @@ def detect_threats(logs):
 
                 "timestamp": log["timestamp"],
                 "severity": "Medium",
+                "score": get_threat_score("Invalid User Login Attempt"),
                 "alert": "Invalid User Login Attempt",
                 "ip": ip,
                 "username": username
@@ -54,6 +54,7 @@ def detect_threats(logs):
 
                 "timestamp": log["timestamp"],
                 "severity": "High",
+                "score": get_threat_score("Root Login Detected"),
                 "alert": "Root Login Detected",
                 "ip": ip,
                 "username": username
@@ -68,6 +69,7 @@ def detect_threats(logs):
 
                 "timestamp": log["timestamp"],
                 "severity": "Low",
+                "score": get_threat_score("Sudo Command Executed"),
                 "alert": "Sudo Command Executed",
                 "ip": ip,
                 "username": username
@@ -84,6 +86,7 @@ def detect_threats(logs):
 
                 "timestamp": "-",
                 "severity": "Critical",
+                "score": get_threat_score("Possible Brute Force Attack"),
                 "alert": "Possible Brute Force Attack",
                 "ip": ip,
                 "username": "-"

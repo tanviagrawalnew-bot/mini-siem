@@ -49,6 +49,8 @@ def create_database():
 
             severity TEXT,
 
+            score INTEGER,
+
             alert TEXT,
 
             ip TEXT,
@@ -119,15 +121,17 @@ def save_alerts(alerts):
             INSERT INTO alerts(
                 timestamp,
                 severity,
+                score,
                 alert,
                 ip,
                 username
             )
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
         """, (
 
             alert["timestamp"],
             alert["severity"],
+            alert["score"],
             alert["alert"],
             alert["ip"],
             alert["username"]
@@ -163,7 +167,8 @@ def get_dashboard_data():
     cursor.execute("""
         SELECT timestamp,
                alert,
-               severity
+               severity,
+               score 
         FROM alerts
         ORDER BY id DESC
         LIMIT 10
@@ -184,6 +189,8 @@ def get_dashboard_data():
         "recent_alerts": recent_alerts
 
     }
+
+
 # ---------------- Clear Database ----------------
 
 def clear_database():
