@@ -12,6 +12,8 @@ def generate_report(alerts, filename="reports/security_report.csv"):
             "Timestamp",
             "Severity",
             "Threat Score",
+            "MITRE ID",
+            "Technique",
             "Alert",
             "IP Address",
             "Username"
@@ -24,6 +26,8 @@ def generate_report(alerts, filename="reports/security_report.csv"):
                 alert["timestamp"],
                 alert["severity"],
                 alert["score"],
+                alert["mitre_id"],
+                alert["mitre_name"],
                 alert["alert"],
                 alert["ip"],
                 alert["username"]
@@ -45,6 +49,8 @@ def generate_pdf(alerts, filename="reports/security_report.pdf"):
         "Timestamp",
         "Severity",
         "Threat Score",
+        "MITRE ID",
+        "Technique",
         "Alert",
         "IP",
         "Username"
@@ -57,6 +63,8 @@ def generate_pdf(alerts, filename="reports/security_report.pdf"):
             alert["timestamp"],
             alert["severity"],
             alert["score"],
+            alert["mitre_id"],
+            alert["mitre_name"],
             alert["alert"],
             alert["ip"],
             alert["username"]

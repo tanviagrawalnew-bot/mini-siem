@@ -14,6 +14,7 @@
 </head>
 
 <body>
+
 <div class="dashboard">
 
     <aside class="sidebar">
@@ -77,6 +78,8 @@
                             <th>Threat</th>
                             <th>Severity</th>
                             <th>Threat Score</th>
+                            <th>MITRE ID</th>
+                            <th>Technique</th>
                         </tr>
 
                     </thead>
@@ -100,6 +103,10 @@
                             {% endif %}
 
                             <td>{{ alert[3] }}</td>
+
+                            <td>{{ alert[4] }}</td>
+
+                            <td>{{ alert[5] }}</td>
 
                         </tr>
 

@@ -51,6 +51,10 @@ def create_database():
 
             score INTEGER,
 
+            mitre_id TEXT,
+
+            mitre_name TEXT,
+
             alert TEXT,
 
             ip TEXT,
@@ -116,22 +120,26 @@ def save_alerts(alerts):
     cursor = conn.cursor()
 
     for alert in alerts:
-
+        print(alert)
         cursor.execute("""
             INSERT INTO alerts(
                 timestamp,
                 severity,
                 score,
+                mitre_id,
+                mitre_name,
                 alert,
                 ip,
                 username
             )
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """, (
 
             alert["timestamp"],
             alert["severity"],
             alert["score"],
+            alert["mitre_id"],
+            alert["mitre_name"],
             alert["alert"],
             alert["ip"],
             alert["username"]
@@ -165,10 +173,13 @@ def get_dashboard_data():
     critical_alerts = cursor.fetchone()[0]
 
     cursor.execute("""
-        SELECT timestamp,
-               alert,
-               severity,
-               score 
+        SELECT
+            timestamp,
+            alert,
+            severity,
+            score,
+            mitre_id,
+            mitre_name
         FROM alerts
         ORDER BY id DESC
         LIMIT 10

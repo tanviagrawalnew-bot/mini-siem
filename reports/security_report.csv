@@ -1,8 +1,8 @@
-Timestamp,Severity,Threat Score,Alert,IP Address,Username
-Jul 20 10:15:21,Medium,10,Failed Login Attempt,192.168.1.10,invalid
-Jul 20 10:15:30,Medium,10,Failed Login Attempt,192.168.1.10,invalid
-Jul 20 10:15:40,Medium,10,Failed Login Attempt,192.168.1.10,invalid
-Jul 20 10:15:50,Medium,10,Failed Login Attempt,192.168.1.10,invalid
-Jul 20 10:16:00,Medium,10,Failed Login Attempt,192.168.1.10,invalid
-Jul 20 10:18:10,High,50,Root Login Detected,192.168.1.20,root
--,Critical,100,Possible Brute Force Attack,192.168.1.10,-
+Timestamp,Severity,Threat Score,MITRE ID,Technique,Alert,IP Address,Username
+Jul 20 10:15:21,Medium,10,T1110,Brute Force,Failed Login Attempt,192.168.1.10,invalid
+Jul 20 10:15:30,Medium,10,T1110,Brute Force,Failed Login Attempt,192.168.1.10,invalid
+Jul 20 10:15:40,Medium,10,T1110,Brute Force,Failed Login Attempt,192.168.1.10,invalid
+Jul 20 10:15:50,Medium,10,T1110,Brute Force,Failed Login Attempt,192.168.1.10,invalid
+Jul 20 10:16:00,Medium,10,T1110,Brute Force,Failed Login Attempt,192.168.1.10,invalid
+Jul 20 10:18:10,High,50,T1078,Valid Accounts,Root Login Detected,192.168.1.20,root
+-,Critical,100,T1110,Brute Force,Possible Brute Force Attack,192.168.1.10,-
