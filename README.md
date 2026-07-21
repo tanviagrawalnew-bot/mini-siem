@@ -1,1 +1,1 @@
-# mini-siem
+# SOC-Sentinel-mini-SIEM

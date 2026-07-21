@@ -62,16 +62,46 @@ def dashboard():
             "username": alert[7] if len(alert) > 7 else ""
         })
 
-    filtered_alerts =  search_logs(alerts, query)
+    filtered_alerts = search_logs(alerts, query)
+
+    # ---------- Prepare Chart Data ----------
+
+    severity_labels = [item[0] for item in data["severity_data"]]
+    severity_counts = [item[1] for item in data["severity_data"]]
+
+    mitre_labels = [item[0] for item in data["mitre_data"]]
+    mitre_counts = [item[1] for item in data["mitre_data"]]
+
+    ip_labels = [item[0] for item in data["top_ips"]]
+    ip_counts = [item[1] for item in data["top_ips"]]
+
+    user_labels = [item[0] for item in data["top_users"]]
+    user_counts = [item[1] for item in data["top_users"]]
+
     return render_template(
         "dashboard.html",
         total_logs=data["total_logs"],
         total_alerts=data["total_alerts"],
+
         critical_alerts=data["critical_alerts"],
         recent_alerts=filtered_alerts,
+
         geo_results=geo_results,
         search_query=query,
-        result_count=len(filtered_alerts)
+
+        result_count=len(filtered_alerts),
+
+        severity_labels=severity_labels,
+        severity_counts=severity_counts,
+
+        mitre_labels=mitre_labels,
+        mitre_counts=mitre_counts,
+
+        ip_labels=ip_labels,
+        ip_counts=ip_counts,
+
+        user_labels=user_labels,
+        user_counts=user_counts
     )
 # ---------------- Upload ----------------
 

@@ -1,53 +1,65 @@
 import sqlite3
 
+
 DATABASE_NAME = "database/siem.db"
 
-
-# ---------------- Create Database ----------------
 
 def create_database():
 
     conn = sqlite3.connect(DATABASE_NAME)
+
     cursor = conn.cursor()
 
-    # Logs Table
+    # ---------------- Logs Table ----------------
+
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS logs (
 
             id INTEGER PRIMARY KEY AUTOINCREMENT,
 
             timestamp TEXT,
+
             hostname TEXT,
+
             service TEXT,
+
             pid TEXT,
+
             event TEXT,
+
             username TEXT,
+
             ip TEXT,
+
             port TEXT,
+
             message TEXT
 
         )
     """)
 
-    # Alerts Table
+    # ---------------- Alerts Table ----------------
+
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS alerts (
 
             id INTEGER PRIMARY KEY AUTOINCREMENT,
 
             timestamp TEXT,
+
             severity TEXT,
-            score INTEGER,
-            mitre_id TEXT,
-            mitre_name TEXT,
+
             alert TEXT,
+
             ip TEXT,
+
             username TEXT
 
         )
     """)
 
     conn.commit()
+
     conn.close()
 
 
@@ -56,13 +68,13 @@ def create_database():
 def save_logs(logs):
 
     conn = sqlite3.connect(DATABASE_NAME)
+
     cursor = conn.cursor()
 
     for log in logs:
 
         cursor.execute("""
             INSERT INTO logs(
-
                 timestamp,
                 hostname,
                 service,
@@ -72,11 +84,8 @@ def save_logs(logs):
                 ip,
                 port,
                 message
-
             )
-
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-
         """, (
 
             log["timestamp"],
@@ -92,6 +101,7 @@ def save_logs(logs):
         ))
 
     conn.commit()
+
     conn.close()
 
 
@@ -100,35 +110,24 @@ def save_logs(logs):
 def save_alerts(alerts):
 
     conn = sqlite3.connect(DATABASE_NAME)
+
     cursor = conn.cursor()
 
     for alert in alerts:
 
-        print(alert)
-
         cursor.execute("""
             INSERT INTO alerts(
-
                 timestamp,
                 severity,
-                score,
-                mitre_id,
-                mitre_name,
                 alert,
                 ip,
                 username
-
             )
-
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-
+            VALUES (?, ?, ?, ?, ?)
         """, (
 
             alert["timestamp"],
             alert["severity"],
-            alert["score"],
-            alert["mitre_id"],
-            alert["mitre_name"],
             alert["alert"],
             alert["ip"],
             alert["username"]
@@ -136,6 +135,7 @@ def save_alerts(alerts):
         ))
 
     conn.commit()
+
     conn.close()
 
 
@@ -144,28 +144,24 @@ def save_alerts(alerts):
 def get_dashboard_data():
 
     conn = sqlite3.connect(DATABASE_NAME)
+
     cursor = conn.cursor()
 
-    # Total Logs
     cursor.execute("SELECT COUNT(*) FROM logs")
     total_logs = cursor.fetchone()[0]
 
-    # Total Alerts
     cursor.execute("SELECT COUNT(*) FROM alerts")
     total_alerts = cursor.fetchone()[0]
 
-    # Critical Alerts
     cursor.execute("""
         SELECT COUNT(*)
         FROM alerts
-        WHERE severity = 'Critical'
+        WHERE severity='Critical'
     """)
     critical_alerts = cursor.fetchone()[0]
 
-    # Recent Alerts (Search Ready)
     cursor.execute("""
         SELECT
-
             timestamp,
             alert,
             severity,
@@ -174,29 +170,84 @@ def get_dashboard_data():
             mitre_name,
             ip,
             username
-
         FROM alerts
-
         ORDER BY id DESC
-
-        LIMIT 50
-
+        LIMIT 25
     """)
 
     recent_alerts = cursor.fetchall()
+# ---------- Severity Chart ----------
+
+    cursor.execute("""
+        SELECT severity, COUNT(*)
+        FROM alerts
+        GROUP BY severity
+    """)
+
+    severity_data = cursor.fetchall()
+
+
+    # ---------- MITRE Chart ----------
+
+    cursor.execute("""
+        SELECT mitre_id, COUNT(*)
+        FROM alerts
+        GROUP BY mitre_id
+    """)
+
+    mitre_data = cursor.fetchall()
+
+
+    # ---------- Top Source IP ----------
+
+    cursor.execute("""
+        SELECT ip, COUNT(*)
+        FROM alerts
+        WHERE ip IS NOT NULL
+        AND ip != ''
+        GROUP BY ip
+        ORDER BY COUNT(*) DESC
+        LIMIT 5
+    """)
+
+    top_ips = cursor.fetchall()
+
+
+   # ---------- Top Targeted Users ----------
+
+    cursor.execute("""
+        SELECT username, COUNT(*)
+        FROM alerts
+        WHERE username IS NOT NULL
+        AND username != ''
+        GROUP BY username
+        ORDER BY COUNT(*) DESC
+        LIMIT 10
+    """)
+
+    top_users = cursor.fetchall()
 
     conn.close()
 
     return {
 
-        "total_logs": total_logs,
-        "total_alerts": total_alerts,
-        "critical_alerts": critical_alerts,
-        "recent_alerts": recent_alerts
+    "total_logs": total_logs,
 
-    }
+    "total_alerts": total_alerts,
 
+    "critical_alerts": critical_alerts,
 
+    "recent_alerts": recent_alerts,
+
+    "severity_data": severity_data,
+
+    "mitre_data": mitre_data,
+
+    "top_ips": top_ips,
+
+    "top_users": top_users
+
+}
 # ---------------- Clear Database ----------------
 
 def clear_database():
