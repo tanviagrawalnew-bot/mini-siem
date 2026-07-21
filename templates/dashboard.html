@@ -38,10 +38,52 @@
     <main class="main-content">
 
         <h1>Security Dashboard</h1>
+        <!-- ================= SMART SEARCH ================= -->
 
+<div class="search-section">
+
+    <form action="/dashboard" method="GET" class="search-form">
+
+        <div class="search-box">
+
+            <span class="search-icon">🔍</span>
+
+            <input
+                id="smartSearch"
+                type="text"
+                name="search"
+                value="{{ search_query }}"
+                placeholder="Search Security Logs..."
+                autocomplete="off">
+
+            <button type="submit">
+                Search
+            </button>
+
+        </div>
+
+    </form>
+
+    {% if search_query %}
+
+    <div class="result-counter">
+
+        Showing <strong>{{ result_count }}</strong> matching alerts for
+
+        <span>"{{ search_query }}"</span>
+
+    </div>
+
+    {% endif %}
+
+</div>
         <div class="cards">
 
             <div class="card">
+
+
+
+                
                 <h2>{{ total_logs }}</h2>
                 <p>Total Logs</p>
             </div>
@@ -86,31 +128,31 @@
 
                     <tbody>
 
-                        {% for alert in recent_alerts %}
+                       {% for alert in recent_alerts %}
 
-                        <tr>
+<tr>
 
-                            <td>{{ alert[0] }}</td>
+    <td>{{ alert.timestamp }}</td>
 
-                            <td>{{ alert[1] }}</td>
+    <td>{{ alert.alert }}</td>
 
-                            {% if alert[2] == "Critical" or alert[2] == "High" %}
-                                <td class="high">{{ alert[2] }}</td>
-                            {% elif alert[2] == "Medium" %}
-                                <td class="medium">{{ alert[2] }}</td>
-                            {% else %}
-                                <td class="low">{{ alert[2] }}</td>
-                            {% endif %}
+    {% if alert.severity == "Critical" or alert.severity == "High" %}
+        <td class="high">{{ alert.severity }}</td>
+    {% elif alert.severity == "Medium" %}
+        <td class="medium">{{ alert.severity }}</td>
+    {% else %}
+        <td class="low">{{ alert.severity }}</td>
+    {% endif %}
 
-                            <td>{{ alert[3] }}</td>
+    <td>{{ alert.score }}</td>
 
-                            <td>{{ alert[4] }}</td>
+    <td>{{ alert.mitre_id }}</td>
 
-                            <td>{{ alert[5] }}</td>
+    <td>{{ alert.mitre_name }}</td>
 
-                        </tr>
+</tr>
 
-                        {% endfor %}
+{% endfor %} 
 
                     </tbody>
 
@@ -149,10 +191,9 @@
                         {% for alert in recent_alerts %}
 
                         <div class="activity-item">
+                            <span>{{ alert.timestamp }}</span>
 
-                            <span>{{ alert[0] }}</span>
-
-                            <p>{{ alert[1] }}</p>
+                            <p>{{ alert.alert }}</p>
 
                         </div>
 
@@ -199,6 +240,82 @@
             </div>
 
         </section>
+     <!-- ================= IP GEOLOCATION ================= -->
+
+<section class="bottom-section">
+
+    <div class="recent-alerts" style="width:100%;">
+
+        <h2>🌍 IP Geolocation</h2>
+
+        {% if geo_results %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>IP Address</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>ISP</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for geo in geo_results %}
+
+                <tr>
+
+                    <td>{{ geo.ip }}</td>
+
+                    <td>
+
+                        {% if geo.country_code %}
+
+                        <img
+                            src="https://flagsapi.com/{{ geo.country_code }}/flat/24.png"
+                            width="24"
+                            style="vertical-align:middle; margin-right:8px;">
+
+                        {% endif %}
+
+                        {{ geo.country }}
+
+                    </td>
+
+                    <td>{{ geo.city }}</td>
+
+                    <td>{{ geo.isp }}</td>
+
+                    <td>{{ geo.latitude }}</td>
+
+                    <td>{{ geo.longitude }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+            <p>No IP geolocation data available.</p>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
 
     </main>
 

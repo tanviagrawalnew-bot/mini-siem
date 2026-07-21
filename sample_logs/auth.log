@@ -1,0 +1,9 @@
+Jul 21 10:12:31 ubuntu sshd[1024]: Failed password for root from 8.8.8.8 port 54821 ssh2
+Jul 21 10:12:35 ubuntu sshd[1025]: Failed password for admin from 8.8.8.8 port 54822 ssh2
+Jul 21 10:12:40 ubuntu sshd[1026]: Failed password for test from 8.8.8.8 port 54823 ssh2
+Jul 21 10:12:45 ubuntu sshd[1027]: Failed password for root from 8.8.8.8 port 54824 ssh2
+Jul 21 10:12:50 ubuntu sshd[1028]: Failed password for root from 8.8.8.8 port 54825 ssh2
+Jul 21 10:13:10 ubuntu sshd[1030]: Accepted password for root from 1.1.1.1 port 54830 ssh2
+Jul 21 10:13:20 ubuntu sudo[1035]: tanvi : TTY=pts/0 ; PWD=/home/tanvi ; USER=root ; COMMAND=/bin/bash
+Jul 21 10:13:40 ubuntu sshd[1040]: Invalid user hacker from 185.199.108.153 port 60211 ssh2
+Jul 21 10:14:10 ubuntu sshd[1045]: Failed password for admin from 142.250.183.110 port 60010 ssh2
