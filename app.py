@@ -82,15 +82,20 @@ def dashboard():
         "dashboard.html",
         total_logs=data["total_logs"],
         total_alerts=data["total_alerts"],
-
+        
         critical_alerts=data["critical_alerts"],
-        recent_alerts=filtered_alerts,
 
+        security_score=data["security_score"],
+
+        unique_ips=data["unique_ips"],
+        targeted_users=data["targeted_users"],
+        mitre_count=data["mitre_count"],
+
+        recent_alerts=filtered_alerts,
         geo_results=geo_results,
         search_query=query,
 
         result_count=len(filtered_alerts),
-
         severity_labels=severity_labels,
         severity_counts=severity_counts,
 

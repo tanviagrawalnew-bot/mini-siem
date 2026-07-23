@@ -160,6 +160,65 @@ def get_dashboard_data():
     """)
     critical_alerts = cursor.fetchone()[0]
 
+    # ---------- Security Score ----------
+
+    cursor.execute("""
+        SELECT severity
+        FROM alerts
+    """)
+
+    severities = cursor.fetchall()
+
+    score = 100
+
+    for severity in severities:
+
+        level = severity[0]
+
+        if level == "Critical":
+            score -= 10
+
+        elif level == "High":
+            score -= 5
+
+        elif level == "Medium":
+            score -= 2
+
+        elif level == "Low":
+            score -= 1
+
+    if score < 0:
+        score = 0
+
+    # ---------- IOC SUMMARY ----------
+
+    # Unique Source IPs
+    cursor.execute("""
+        SELECT COUNT(DISTINCT ip)
+        FROM alerts
+        WHERE ip IS NOT NULL
+        AND ip != ''
+    """)
+    unique_ips = cursor.fetchone()[0]
+
+    # Targeted Users
+    cursor.execute("""
+        SELECT COUNT(DISTINCT username)
+        FROM alerts
+        WHERE username IS NOT NULL
+        AND username != ''
+    """)
+    targeted_users = cursor.fetchone()[0]
+
+    # MITRE Techniques
+    cursor.execute("""
+        SELECT COUNT(DISTINCT mitre_id)
+        FROM alerts
+        WHERE mitre_id IS NOT NULL
+        AND mitre_id != ''
+    """)
+    mitre_count = cursor.fetchone()[0]
+
     cursor.execute("""
         SELECT
             timestamp,
@@ -174,6 +233,7 @@ def get_dashboard_data():
         ORDER BY id DESC
         LIMIT 25
     """)
+
 
     recent_alerts = cursor.fetchall()
 # ---------- Severity Chart ----------
@@ -236,6 +296,14 @@ def get_dashboard_data():
     "total_alerts": total_alerts,
 
     "critical_alerts": critical_alerts,
+
+    "security_score": score,
+    
+    "unique_ips": unique_ips,
+
+    "targeted_users": targeted_users,
+
+    "mitre_count": mitre_count,
 
     "recent_alerts": recent_alerts,
 

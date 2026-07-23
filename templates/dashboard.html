@@ -65,6 +65,8 @@
     <main class="main-content">
 
         <h1>Security Dashboard</h1>
+
+
         <!-- ================= SMART SEARCH ================= -->
 
 <div class="search-section">
@@ -125,10 +127,23 @@
                 <p>Critical Threats</p>
             </div>
 
-            <div class="card">
-                <h2>99.9%</h2>
-                <p>System Health</p>
-            </div>
+                <div class="card">
+
+        {% if security_score >= 90 %}
+            <h2 style="color:#39ff88;">{{ security_score }}</h2>
+            <p>Security Score</p>
+
+        {% elif security_score >= 70 %}
+            <h2 style="color:#ffd43b;">{{ security_score }}</h2>
+            <p>Security Score</p>
+
+        {% else %}
+            <h2 style="color:#ff4d4d;">{{ security_score }}</h2>
+            <p>Security Score</p>
+
+        {% endif %}
+
+    </div>
 
         </div>
 
@@ -263,34 +278,36 @@
                 </div>
 
             </div>
+            <!-- -------------System Panel-------------- -->
 
             <div class="system-panel">
 
-                <h2>System Status</h2>
+        <h2>🛡 IOC Summary</h2>
 
-                <div class="status-box">
-                    <p>CPU Usage</p>
-                    <strong>18%</strong>
-                </div>
+        <div class="status-box">
+            <p>🌍 Unique Source IPs</p>
+            <strong>{{ unique_ips }}</strong>
+        </div>
 
-                <div class="status-box">
-                    <p>Memory Usage</p>
-                    <strong>43%</strong>
-                </div>
+        <div class="status-box">
+            <p>👤 Targeted Users</p>
+            <strong>{{ targeted_users }}</strong>
+        </div>
 
-                <div class="status-box">
-                    <p>Disk Space</p>
-                    <strong>71%</strong>
-                </div>
+        <div class="status-box">
+            <p>🎯 MITRE Techniques</p>
+            <strong>{{ mitre_count }}</strong>
+        </div>
 
-                <div class="status-box">
-                    <p>Network</p>
-                    <strong style="color:#39ff88;">Healthy</strong>
-                </div>
+        <div class="status-box">
+            <p>🚨 Critical Alerts</p>
+            <strong class="high">{{ critical_alerts }}</strong>
+        </div>
 
-            </div>
+    </div>
 
         </section>
+
      <!-- ================= IP GEOLOCATION ================= -->
 
 <section class="bottom-section">
