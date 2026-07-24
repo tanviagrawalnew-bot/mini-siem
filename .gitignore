@@ -19,3 +19,13 @@ reports/*.pdf
 reports/*.csv
 __pycache__/
 *.pyc
+# Generated reports
+reports/security_report.pdf
+reports/security_report.csv
+
+# Database
+database/*.db
+
+# Python cache
+__pycache__/
+*.pyc

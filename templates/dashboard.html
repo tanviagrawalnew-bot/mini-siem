@@ -397,10 +397,19 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+Chart.defaults.color="#C9D5E3";
+
+Chart.defaults.font.family="'Segoe UI',sans-serif";
+
+Chart.defaults.font.size=13;
+
+Chart.defaults.plugins.legend.labels.usePointStyle=true;
+
+Chart.defaults.plugins.legend.labels.boxWidth=10;
 
 new Chart(document.getElementById('severityChart'), {
 
-    type: 'bar',
+    type: 'doughnut',
 
     data: {
 
@@ -408,16 +417,93 @@ new Chart(document.getElementById('severityChart'), {
 
         datasets: [{
 
-            label: 'Alerts',
+            data: {{ severity_counts|tojson }},
 
-            data: {{ severity_counts|tojson }}
+            backgroundColor: [
+
+                "#EF4444", // Critical
+
+                "#F97316", // High
+
+                "#FACC15", // Medium
+
+                "#22C55E"  // Low
+
+            ],
+
+            borderColor: "#111827",
+
+            borderWidth: 3,
+
+            hoverOffset: 12
 
         }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        cutout: "68%",
+
+        animation: {
+
+            animateRotate: true,
+
+            duration: 1500,
+
+            easing: "easeOutQuart"
+
+        },
+
+        plugins: {
+
+            legend: {
+
+                position: "bottom",
+
+                labels: {
+
+                    color: "#D6E2F0",
+
+                    usePointStyle: true,
+
+                    pointStyle: "circle",
+
+                    padding: 18,
+
+                    font: {
+
+                        size: 13,
+
+                        weight: "600"
+
+                    }
+
+                }
+
+            },
+
+            tooltip: {
+
+                backgroundColor: "#08111F",
+
+                titleColor: "#fff",
+
+                bodyColor: "#fff",
+
+                padding: 12
+
+            }
+
+        }
 
     }
 
 });
-
 
 new Chart(document.getElementById('usersChart'), {
 
@@ -429,13 +515,17 @@ new Chart(document.getElementById('usersChart'), {
 
         datasets: [{
 
-            label: 'Attack Attempts',
+            label: "Attempts",
 
             data: {{ user_counts|tojson }},
 
-            backgroundColor: "#7c5cff",
+            backgroundColor: "#3B82F6",
 
-            borderRadius: 8
+            borderRadius: 10,
+
+            borderSkipped: false,
+
+            barThickness: 18
 
         }]
 
@@ -443,13 +533,79 @@ new Chart(document.getElementById('usersChart'), {
 
     options: {
 
+        responsive: true,
+
+        maintainAspectRatio: false,
+
         indexAxis: 'y',
+
+        animation: {
+
+            duration: 1400,
+
+            easing: "easeOutQuart"
+
+        },
 
         plugins: {
 
             legend: {
 
                 display: false
+
+            },
+
+            tooltip: {
+
+                backgroundColor: "#08111F",
+
+                titleColor: "#fff",
+
+                bodyColor: "#fff"
+
+            }
+
+        },
+
+        scales: {
+
+            x: {
+
+                beginAtZero: true,
+
+                ticks: {
+
+                    color: "#D6E2F0"
+
+                },
+
+                grid: {
+
+                    color: "rgba(255,255,255,.06)"
+
+                }
+
+            },
+
+            y: {
+
+                ticks: {
+
+                    color: "#D6E2F0",
+
+                    font: {
+
+                        weight: "600"
+
+                    }
+
+                },
+
+                grid: {
+
+                    display: false
+
+                }
 
             }
 
@@ -458,7 +614,6 @@ new Chart(document.getElementById('usersChart'), {
     }
 
 });
-
 
 new Chart(document.getElementById('mitreChart'), {
 
@@ -470,15 +625,93 @@ new Chart(document.getElementById('mitreChart'), {
 
         datasets: [{
 
-            data: {{ mitre_counts|tojson }}
+            data: {{ mitre_counts|tojson }},
+
+            backgroundColor: [
+
+                "#00E5FF",
+
+                "#3B82F6",
+
+                "#8B5CF6",
+
+                "#22C55E",
+
+                "#F97316",
+
+                "#EF4444"
+
+            ],
+
+            borderColor: "#111827",
+
+            borderWidth: 3,
+
+            hoverOffset: 12
 
         }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        cutout: "70%",
+
+        animation: {
+
+            duration: 1500,
+
+            easing: "easeOutQuart"
+
+        },
+
+        plugins: {
+
+            legend: {
+
+                position: "bottom",
+
+                labels: {
+
+                    color: "#D6E2F0",
+
+                    usePointStyle: true,
+
+                    pointStyle: "circle",
+
+                    padding: 18,
+
+                    font: {
+
+                        size: 13,
+
+                        weight: "600"
+
+                    }
+
+                }
+
+            },
+
+            tooltip: {
+
+                backgroundColor: "#08111F",
+
+                titleColor: "#fff",
+
+                bodyColor: "#fff"
+
+            }
+
+        }
 
     }
 
 });
-
-
 new Chart(document.getElementById('ipChart'), {
 
     type: 'bar',
@@ -489,9 +722,17 @@ new Chart(document.getElementById('ipChart'), {
 
         datasets: [{
 
-            label: 'Alerts',
+            label: "Alerts",
 
-            data: {{ ip_counts|tojson }}
+            data: {{ ip_counts|tojson }},
+
+            backgroundColor: "#06B6D4",
+
+            borderRadius: 10,
+
+            borderSkipped: false,
+
+            barThickness: 18
 
         }]
 
@@ -499,7 +740,83 @@ new Chart(document.getElementById('ipChart'), {
 
     options: {
 
-        indexAxis: 'y'
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        indexAxis: 'y',
+
+        animation: {
+
+            duration: 1400,
+
+            easing: "easeOutQuart"
+
+        },
+
+        plugins: {
+
+            legend: {
+
+                display: false
+
+            },
+
+            tooltip: {
+
+                backgroundColor: "#08111F",
+
+                titleColor: "#fff",
+
+                bodyColor: "#fff"
+
+            }
+
+        },
+
+        scales: {
+
+            x: {
+
+                beginAtZero: true,
+
+                ticks: {
+
+                    color: "#D6E2F0"
+
+                },
+
+                grid: {
+
+                    color: "rgba(255,255,255,.06)"
+
+                }
+
+            },
+
+            y: {
+
+                ticks: {
+
+                    color: "#D6E2F0",
+
+                    font: {
+
+                        weight: "600"
+
+                    }
+
+                },
+
+                grid: {
+
+                    display: false
+
+                }
+
+            }
+
+        }
 
     }
 

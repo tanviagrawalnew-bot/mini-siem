@@ -916,25 +916,44 @@ th,td{
 
 .chart-card{
 
-    background:#111b2d;
+    background:linear-gradient(180deg,#132238,#0B1525);
 
-    border:1px solid rgba(0,229,255,.18);
+    border:1px solid rgba(0,229,255,.12);
 
-    border-radius:16px;
+    border-radius:18px;
 
     padding:25px;
 
-    height:350px;
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.03);
+
+    transition:.35s ease;
+
+}
+
+.chart-card:hover{
+
+    transform:translateY(-5px);
+
+    border-color:#00E5FF;
+
+    box-shadow:
+        0 0 18px rgba(0,229,255,.18);
 
 }
 
 .chart-card h2{
 
-    color:#00E5FF;
+    color:#F5F9FF;
 
-    margin-bottom:20px;
+    font-size:19px;
 
-    font-size:22px;
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+    margin-bottom:18px;
 
 }
 
@@ -942,7 +961,7 @@ th,td{
 
     width:100% !important;
 
-    height:260px !important;
+    height:300px !important;
 
 }
 
