@@ -39,6 +39,7 @@ def create_database():
     """)
 
     # ---------------- Alerts Table ----------------
+# ---------------- Alerts Table ----------------
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS alerts (
@@ -49,9 +50,15 @@ def create_database():
 
             severity TEXT,
 
+            score INTEGER,
+
+            mitre_id TEXT,
+
+            mitre_name TEXT,
+
             alert TEXT,
 
-            ip TEXT,
+             ip TEXT,
 
             username TEXT
 
@@ -61,8 +68,6 @@ def create_database():
     conn.commit()
 
     conn.close()
-
-
 # ---------------- Save Parsed Logs ----------------
 
 def save_logs(logs):
@@ -119,15 +124,21 @@ def save_alerts(alerts):
             INSERT INTO alerts(
                 timestamp,
                 severity,
+                score,
+                mitre_id,
+                mitre_name,
                 alert,
                 ip,
                 username
             )
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """, (
 
             alert["timestamp"],
             alert["severity"],
+            alert["score"],
+            alert["mitre_id"],
+            alert["mitre_name"],
             alert["alert"],
             alert["ip"],
             alert["username"]
@@ -135,7 +146,6 @@ def save_alerts(alerts):
         ))
 
     conn.commit()
-
     conn.close()
 
 

@@ -13,3 +13,9 @@ venv/
 
 # macOS
 .DS_Store
+venv/
+database/*.db
+reports/*.pdf
+reports/*.csv
+__pycache__/
+*.pyc

@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import defaultdict
 
 from detection.scoring import get_threat_score
 from detection.mitre import get_mitre_mapping
@@ -7,7 +7,12 @@ from detection.mitre import get_mitre_mapping
 def detect_threats(logs):
 
     alerts = []
-    failed_ips = Counter()
+
+    # Store failed login count + first timestamp for each IP
+    failed_ips = defaultdict(lambda: {
+        "count": 0,
+        "timestamp": ""
+    })
 
     for log in logs:
 
@@ -35,7 +40,11 @@ def detect_threats(logs):
             })
 
             if ip:
-                failed_ips[ip] += 1
+                failed_ips[ip]["count"] += 1
+
+                # Save the first failed login timestamp
+                if not failed_ips[ip]["timestamp"]:
+                    failed_ips[ip]["timestamp"] = log["timestamp"]
 
         # ---------------- Invalid User ----------------
 
@@ -96,15 +105,15 @@ def detect_threats(logs):
 
     # ---------------- Brute Force Detection ----------------
 
-    for ip, count in failed_ips.items():
+    for ip, data in failed_ips.items():
 
-        if count >= 5:
+        if data["count"] >= 5:
 
             mitre = get_mitre_mapping("Possible Brute Force Attack")
 
             alerts.append({
 
-                "timestamp": "-",
+                "timestamp": data["timestamp"],
                 "severity": "Critical",
                 "score": get_threat_score("Possible Brute Force Attack"),
                 "mitre_id": mitre["id"],
