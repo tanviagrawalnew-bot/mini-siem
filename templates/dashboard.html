@@ -64,7 +64,11 @@
 
     <main class="main-content">
 
-        <h1>Security Dashboard</h1>
+       <h1>🛡 Security Operations Center</h1>
+
+<p class="dashboard-subtitle">
+Monitor • Detect • Investigate • Respond
+</p>
 
 
         <!-- ================= SMART SEARCH ================= -->
@@ -82,7 +86,7 @@
                 type="text"
                 name="search"
                 value="{{ search_query }}"
-                placeholder="Search Security Logs..."
+                placeholder="Search by IP, Username, MITRE ID, Threat..."
                 autocomplete="off">
 
             <button type="submit">
@@ -106,44 +110,56 @@
     {% endif %}
 
 </div>
-        <div class="cards">
+       
+<div class="summary-cards">
+   <div class="card">
 
-            <div class="card">
+    <h2>📄 {{ total_logs }}</h2>
 
+    <p>TOTAL LOGS</p>
 
+    <small>Processed Today</small>
 
-                
-                <h2>{{ total_logs }}</h2>
-                <p>Total Logs</p>
-            </div>
+</div>
 
-            <div class="card">
-                <h2>{{ total_alerts }}</h2>
-                <p>Alerts</p>
-            </div>
+<div class="card">
 
-            <div class="card">
-                <h2>{{ critical_alerts }}</h2>
-                <p>Critical Threats</p>
-            </div>
+    <h2>🚨 {{ total_alerts }}</h2>
 
-                <div class="card">
+    <p>ACTIVE ALERTS</p>
 
-        {% if security_score >= 90 %}
-            <h2 style="color:#39ff88;">{{ security_score }}</h2>
-            <p>Security Score</p>
+    <small>Live Monitoring</small>
 
-        {% elif security_score >= 70 %}
-            <h2 style="color:#ffd43b;">{{ security_score }}</h2>
-            <p>Security Score</p>
+</div>
 
-        {% else %}
-            <h2 style="color:#ff4d4d;">{{ security_score }}</h2>
-            <p>Security Score</p>
+<div class="card">
 
-        {% endif %}
+   <h2>⚠️ {{ critical_alerts }}</h2>
 
-    </div>
+    <p>CRITICAL THREATS</p>
+
+    <small>Immediate Response</small>
+
+</div>
+
+<div class="card">
+
+    {% if security_score >= 90 %}
+       <h2 style="color:#39ff88;">🛡 {{ security_score }}</h2>
+
+    {% elif security_score >= 70 %}
+      <h2 style="color:#ffd43b;">🛡 {{ security_score }}</h2> 
+
+    {% else %}
+        <h2 style="color:#ff4d4d;">🛡 {{ security_score }}</h2>
+
+    {% endif %}
+
+    <p>SECURITY SCORE</p>
+
+    <small>Overall Protection</small>
+
+</div>
 
         </div>
 
@@ -204,13 +220,19 @@
 
     <td>{{ alert.alert }}</td>
 
-    {% if alert.severity == "Critical" or alert.severity == "High" %}
-        <td class="high">{{ alert.severity }}</td>
-    {% elif alert.severity == "Medium" %}
-        <td class="medium">{{ alert.severity }}</td>
-    {% else %}
-        <td class="low">{{ alert.severity }}</td>
-    {% endif %}
+   {% if alert.severity == "Critical" %}
+    <td><span class="severity critical">Critical</span></td>
+
+{% elif alert.severity == "High" %}
+    <td><span class="severity high">High</span></td>
+
+{% elif alert.severity == "Medium" %}
+    <td><span class="severity medium">Medium</span></td>
+
+{% else %}
+    <td><span class="severity low">Low</span></td>
+
+{% endif %}
 
     <td>{{ alert.score }}</td>
 
@@ -232,17 +254,37 @@
 
             <div class="quick-actions">
 
-                <h2>Quick Actions</h2>
+                <div class="quick-actions">
 
-                <a href="/upload" class="action-btn">📂 Upload Logs</a>
+    <h2><i class="fa-solid fa-bolt"></i> Quick Actions</h2>
 
-                <a href="/reports" class="action-btn">📄 Generate Report</a>
+    <a href="/upload" class="action-btn">
+        <i class="fa-solid fa-upload"></i>
+        Upload Logs
+    </a>
 
-                <a href="/clear-history"
-                   class="action-btn"
-                   onclick="return confirm('Are you sure you want to clear all logs and alerts?')">
-                    🗑️ Clear History
-                </a>
+    <a href="/reports" class="action-btn">
+        <i class="fa-solid fa-file-lines"></i>
+        Generate Report
+    </a>
+
+   <a href="/download-report" class="action-btn">
+    <i class="fa-solid fa-download"></i>
+    Export CSV
+</a>
+
+    
+
+    <a href="/clear-history"
+       class="action-btn danger-btn"
+       onclick="return confirm('Are you sure you want to clear all logs and alerts?')">
+
+        <i class="fa-solid fa-trash"></i>
+        Clear History
+
+    </a>
+
+</div>
 
             </div>
 

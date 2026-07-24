@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,11 +41,30 @@
 
         <div class="hero-text">
 
-            <h1>Security Information & Event Management</h1>
+         
+   <h1>
+    
+    Mini SIEM
+</h1>
 
-            <p>
-                Monitor logs, detect threats, generate alerts and visualize security events in one place.
-            </p>
+<h3 class="hero-subtitle">
+    Security Information & Event Management
+</h3>   
+
+   <p>
+Monitor security logs, detect cyber threats, map MITRE ATT&CK techniques, analyze IOCs, generate reports and visualize attacks from a unified Security Operations Center dashboard.
+</p> 
+<div class="hero-badges">
+
+    <span><i class="fa-solid fa-shield-halved"></i> Threat Detection</span>
+
+    <span><i class="fa-solid fa-crosshairs"></i> MITRE ATT&CK</span>
+
+    <span><i class="fa-solid fa-location-dot"></i> Geo Mapping</span>
+
+    <span><i class="fa-solid fa-brain"></i> IOC Analysis</span>
+
+</div>       
 
             <div class="hero-buttons">
 
@@ -64,7 +84,7 @@
 
             <div class="status-card">
 
-                <h3>🛡 SOC STATUS</h3>
+    <h3><i class="fa-solid fa-shield-halved"></i> SOC STATUS</h3>           
 
                 <div class="status-row">
                     <span>System Health</span>
@@ -85,6 +105,16 @@
                     <span>Alerts Today</span>
                     <span>8</span>
                 </div>
+                <div class="status-row">
+    <span>Threat Intelligence</span>
+    <span class="green">READY</span>
+</div>
+
+<div class="status-row">
+    <span>MITRE Engine</span>
+    <span class="green">Threat Intelligence
+ACTIVE</span>
+</div>
 
             </div>
 
@@ -101,33 +131,29 @@
         <div class="feature-grid">
 
             <div class="feature-card">
-                <h3>📂 Log Collection</h3>
+                <h3><i class="fa-solid fa-folder-open"></i> Log Collection</h3>
                 <p>Upload and organize system logs for centralized monitoring.</p>
             </div>
 
             <div class="feature-card">
-                <h3>🛡 Threat Detection</h3>
+                <h3><i class="fa-solid fa-shield-virus"></i> Threat Detection</h3>
                 <p>Identify suspicious activities using predefined detection rules.</p>
             </div>
 
             <div class="feature-card">
-                <h3>🚨 Alert Management</h3>
+               <h3><i class="fa-solid fa-bell"></i> Alert Management</h3> 
                 <p>Generate severity-based alerts for security incidents.</p>
             </div>
 
             <div class="feature-card">
-                <h3>📊 Reports</h3>
+                <h3><i class="fa-solid fa-file-pdf"></i> Reports</h3>
                 <p>Create security reports for analysis and incident tracking.</p>
             </div>
 
         </div>
 
     </section>
-
-</body>
-
-</html>
-<section class="stats">
+    <section class="stats">
 
     <div class="stat-box">
         <h2>12K+</h2>
@@ -150,3 +176,31 @@
     </div>
 
 </section>
+
+<footer class="footer">
+
+    <h2>SOC Sentinel</h2>
+
+    <p>
+        Mini SIEM Security Information & Event Management
+    </p>
+
+    <div class="footer-links">
+
+        <a href="/">Home</a>
+
+        <a href="/dashboard">Dashboard</a>
+
+        <a href="/upload">Upload</a>
+
+        <a href="/reports">Reports</a>
+
+    </div>
+
+    <p class="copyright">
+        © 2026 SOC Sentinel • Built with Flask & Python
+    </p>
+
+</footer>
+</body>
+</html>
