@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, send_file
+from flask import Flask, render_template, request, redirect, send_file, url_for
 import os
 from search.search_logs import search_logs
 from parser.parser import parse_logs
@@ -180,7 +180,7 @@ def upload():
 
             print("=" * 50)
 
-            return redirect("/dashboard")
+            return redirect(url_for("dashboard"))
 
     return render_template("upload.html")
 

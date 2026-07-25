@@ -1,143 +1,162 @@
-Mini SIEM (Security Information and Event Management)
+# 🛡️ SOC Sentinel
 
-A lightweight Security Information and Event Management (SIEM) system built using PYTHON and FLASK for analyzing security log files.
+*A Mini Security Information and Event Management (SIEM) Platform*
 
-The application collects and processes log data, detects suspicious activities, identifies Indicators of Compromise (IOCs), performs IP geolocation, assigns severity levels and threat scores, maps events to the MITRE ATT&CK framework, and generates detailed security reports through an interactive web dashboard.
+A lightweight **Security Information and Event Management (SIEM)** application built using **Python** and **Flask** to analyse security log files, detect suspicious activities, extract Indicators of Compromise (IOCs), map attacks to the **MITRE ATT&CK** framework, perform IP geolocation, and generate professional PDF & CSV security reports through an interactive dashboard.
 
-This project was developed to demonstrate the core concepts of Security Operations Center (SOC) monitoring and log analysis in a simplified and beginner-friendly environment.
+---
 
-#Key Features
+## ✨ Features
 
-📂 Log Analysis
-- Upload log files for analysis
-- Parse structured log data
-- Support for sample log datasets
+- 📂 Upload and analyse security log files
+- 🚨 Detect suspicious activities and security alerts
+- 🎯 MITRE ATT&CK technique mapping
+- 🔍 IOC extraction (IP addresses & usernames)
+- 🌍 IP geolocation lookup
+- 📊 Interactive security dashboard with charts and metrics
+- 📑 Generate PDF & CSV security reports
+- 💾 Store analysed data using SQLite
 
-🚨 Threat Detection
-- Detect suspicious security events
-- Identify Indicators of Compromise (IOCs)
-- Assign event severity
-- Calculate threat scores
+---
 
-🌍 IP Intelligence
-- IP Geolocation lookup
-- Display location information for suspicious IP addresses
+## 🛠️ Tech Stack
 
-🎯 MITRE ATT&CK Mapping
-- Map detected activities to relevant MITRE ATT&CK techniques
-- Improve understanding of attacker behavior
-
-📊 Dashboard
-- Interactive security dashboard
-- View detected events
-- Search analyzed logs
-- Review threat information
-
-📑 Reporting
-- Generate professional PDF reports
-- Export analysis as CSV
-- Store reports for future reference
-
-💾 Data Management
-- SQLite database integration
-- Store analyzed security events
-- Maintain uploaded log records
-
-🛠️ Technology Stack
-
-| Category | Technologies |
-|----------|--------------|
+| Category | Technology |
+|-----------|------------|
 | Backend | Python, Flask |
 | Frontend | HTML, CSS, JavaScript |
 | Database | SQLite |
-| Reporting | PDF, CSV |
-| Security Framework | MITRE ATT&CK |
+| Charts | Chart.js |
+| Reporting | ReportLab, CSV |
+| Security | MITRE ATT&CK |
 
+---
 
-# 📂 Project Structure
+## 📸 Screenshots
+
+### 🏠 Home
+
+![Home](screenshots/home.png)
+
+### 📊 Dashboard Overview
+
+![Dashboard Overview](screenshots/dashboard-overview.png)
+
+### 📈 Dashboard Analysis
+
+![Dashboard Analysis](screenshots/dashboard-analysis.png)
+
+### 📂 Upload Logs
+
+![Upload Logs](screenshots/upload-logs.png)
+
+### 🌍 IP Geolocation
+
+![IP Geolocation](screenshots/ip-geolocation.png)
+
+### 📑 Reports
+
+![Reports](screenshots/reports.png)
+
+### 📄 Generated Security Report
+
+![Report Preview](screenshots/report-preview.png)
+
+---
+
+## 📁 Project Structure
+
+```text
 mini-siem/
-├── app.py                 # Main Flask application
-├── database/              # Database and storage
-├── detection/             # Threat detection engine
-├── geo/                   # IP geolocation
-├── ioc/                   # IOC detection
-├── parser/                # Log parsing modules
-├── reports/               # PDF & CSV report generation
-├── sample_logs/           # Sample log files
-├── search/                # Search functionality
-├── static/                # CSS, JavaScript and assets
-├── templates/             # HTML templates
-├── uploads/               # Uploaded log files
+│
+├── detection/
+├── geo/
+├── ioc/
+├── parser/
+├── reports/
+├── sample_logs/
+├── screenshots/
+├── search/
+├── static/
+├── templates/
+├── uploads/
+├── app.py
 ├── requirements.txt
-└── README.md
+├── README.md
+└── .gitignore
+```
 
+---
 
-# 🔄 Project Workflow
+## 🚀 Installation
 
-                Log File Upload
-                       │
-                       ▼
-                Log Parsing Engine
-                       │
-                       ▼
-              Threat Detection Engine
-                       │
-       ┌───────────────┴───────────────┐
-       ▼                               ▼
- IOC Detection                  IP Geolocation
-       │                               │
-       └───────────────┬───────────────┘
-                       ▼
-         Severity & Threat Score
-                       │
-                       ▼
-          MITRE ATT&CK Mapping
-                       │
-                       ▼
-          Dashboard Visualization
-                       │
-                       ▼
-        PDF & CSV Security Reports
-
-Installation-
-Clone the repository
+```bash
 git clone https://github.com/tanviagrawalnew-bot/mini-siem.git
 
-Move into the project directory
 cd mini-siem
 
-Install dependencies
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
 pip install -r requirements.txt
 
-Run the application
-Python app.py
+python app.py
+```
 
-Open your browser
+Open your browser:
+
+```text
 http://127.0.0.1:5000
+```
 
-How to Use
-1. Launch the Flask application.
-2. Upload a supported log file.
-3. The parser processes the logs.
-4. Suspicious activities are detected.
-5. IOC analysis and IP geolocation are performed.
-6. Severity levels and threat scores are calculated.
-7. Events are mapped to MITRE ATT&CK techniques.
-8. Results are displayed on the dashboard.
-9. Export the security report as PDF or CSV.
+---
 
- Future Improvements
+## 📖 Workflow
+
+```text
+Upload Log
+     │
+     ▼
+Log Parsing
+     │
+     ▼
+Threat Detection
+     │
+     ├── IOC Extraction
+     ├── MITRE ATT&CK Mapping
+     ├── IP Geolocation
+     ▼
+Dashboard
+     │
+     ▼
+PDF & CSV Reports
+```
+
+---
+
+## 🚀 Future Improvements
+
 - Real-time log monitoring
-- AI-based anomaly detection
-- Live charts and analytics
-- Email alert notifications
-- User authentication
-- Multi-user support
-- Dark mode dashboard
-- Threat intelligence API integration
+- Threat Intelligence API integration
+- Email alerts
+- Docker support
 
-# 👩‍💻 Author
-Tanvi Agrawal
-Kajal Singh
+---
+
+## 👩‍💻 Authors
+
+## 👩‍💻 Authors
+
+**Tanvi Agrawal**  
 B.Tech CSE Student
-Cybersecurity Enthusiast
+
+**Kajal Singh**  
+B.Tech CSE Student
+
+---
+
+## 📄 License
+
+This project is developed for educational and learning purposes.

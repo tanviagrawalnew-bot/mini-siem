@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 *.py[cod]
+*.log
 
 # Virtual Environment
 venv/
@@ -13,19 +14,23 @@ venv/
 
 # macOS
 .DS_Store
-venv/
+
+# SQLite Database
 database/*.db
+
+# Generated Reports
 reports/*.pdf
 reports/*.csv
-__pycache__/
-*.pyc
-# Generated reports
-reports/security_report.pdf
-reports/security_report.csv
 
-# Database
-database/*.db
-
+# Uploaded files
+uploads/*
+!uploads/.gitkeep
 # Python cache
-__pycache__/
-*.pyc
+*.pyo
+
+# Pytest / coverage (future ke liye)
+.pytest_cache/
+.coverage
+
+# OS files
+Thumbs.db
