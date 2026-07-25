@@ -147,8 +147,6 @@ PDF & CSV Reports
 
 ## 👩‍💻 Authors
 
-## 👩‍💻 Authors
-
 **Tanvi Agrawal**  
 B.Tech CSE Student
 
