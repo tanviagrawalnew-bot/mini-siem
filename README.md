@@ -5,7 +5,13 @@
 A lightweight **Security Information and Event Management (SIEM)** application built using **Python** and **Flask** to analyse security log files, detect suspicious activities, extract Indicators of Compromise (IOCs), map attacks to the **MITRE ATT&CK** framework, perform IP geolocation, and generate professional PDF & CSV security reports through an interactive dashboard.
 
 ---
+## 🌐 Live Demo
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](https://soc-sentinel.onrender.com)
+
+🔗 https://soc-sentinel.onrender.com
+
+> **Note:** The application is hosted on Render's free tier. The first request after inactivity may take 30–60 seconds while the server wakes up.
 ## ✨ Features
 
 - 📂 Upload and analyse security log files
@@ -111,6 +117,10 @@ Open your browser:
 http://127.0.0.1:5000
 ```
 
+### 🧪 Sample Logs
+
+Sample log files for testing are available in the `sample_logs/` directory.
+
 ---
 
 ## 📖 Workflow
@@ -139,9 +149,12 @@ PDF & CSV Reports
 ## 🚀 Future Improvements
 
 - Real-time log monitoring
-- Threat Intelligence API integration
+- Threat Intelligence API integration (VirusTotal, AbuseIPDB)
 - Email alerts
+- Advanced search & filtering
+- User authentication
 - Docker support
+- CI/CD with GitHub Actions
 
 ---
 
