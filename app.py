@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, send_file, url_for
 import os
+import logging
+from werkzeug.utils import secure_filename
+from werkzeug.exceptions import RequestEntityTooLarge
 from search.search_logs import search_logs
 from parser.parser import parse_logs
 from detection.detector import detect_threats
@@ -21,12 +24,69 @@ app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
+# ---------------- Upload Validation Config ----------------
+# Max upload size: 10 MB. Flask enforces this automatically and raises
+# RequestEntityTooLarge if exceeded (handled below).
+app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 MB
+
+# Allowed log file extensions for upload. Matches what the upload form
+# already advertises (parser format support is unchanged in this step).
+ALLOWED_UPLOAD_EXTENSIONS = {".txt", ".log", ".csv"}
+
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 create_database()
 
 # Global variable for dashboard
 geo_results = []
+
+
+# ---------------- Upload Validation Helper ----------------
+
+def validate_upload(file):
+    """
+    Validates an uploaded file before it is saved or processed.
+
+    Returns:
+        (is_valid, error_message)
+        is_valid is True and error_message is None when validation passes.
+        is_valid is False and error_message is a human-readable string
+        describing the problem when validation fails.
+    """
+
+    if file is None or not file.filename:
+        return False, "Please select a log file to upload."
+
+    filename = file.filename.strip()
+
+    if filename == "":
+        return False, "Please select a log file to upload."
+
+    _, extension = os.path.splitext(filename)
+    extension = extension.lower()
+
+    if extension not in ALLOWED_UPLOAD_EXTENSIONS:
+        allowed = ", ".join(sorted(ALLOWED_UPLOAD_EXTENSIONS))
+        return False, (
+            f"Unsupported file type '{extension or 'unknown'}'. "
+            f"Allowed file types: {allowed}"
+        )
+
+    # Check for an empty (0-byte) file without fully reading it into memory.
+    file.stream.seek(0, os.SEEK_END)
+    file_size = file.stream.tell()
+    file.stream.seek(0)
+
+    if file_size == 0:
+        return False, "The selected file is empty. Please choose a valid log file."
+
+    return True, None
 
 
 # ---------------- Home ----------------
@@ -119,35 +179,48 @@ def upload():
 
         file = request.files.get("logfile")
 
-        if file and file.filename:
+        # ---------------- Server-side Validation ----------------
 
-            filepath = os.path.join(
-                app.config["UPLOAD_FOLDER"],
-                file.filename
+        is_valid, error_message = validate_upload(file)
+
+        if not is_valid:
+            logger.warning("Upload rejected: %s", error_message)
+            return render_template("upload.html", error=error_message)
+
+        # ---------------- Secure Filename ----------------
+
+        filename = secure_filename(file.filename)
+
+        if not filename:
+            logger.warning("Upload rejected: filename could not be sanitized")
+            return render_template(
+                "upload.html",
+                error="Invalid filename. Please rename the file and try again."
             )
 
+        filepath = os.path.join(
+            app.config["UPLOAD_FOLDER"],
+            filename
+        )
+
+        try:
             file.save(filepath)
 
             # ---------------- Parse Logs ----------------
 
             logs = parse_logs(filepath)
 
-            print("=" * 50)
-            print("Parsed Logs:", len(logs))
+            logger.info("Parsed logs: %d", len(logs))
 
             # ---------------- IOC Extraction ----------------
 
             iocs = extract_iocs(logs)
 
-            print("=" * 50)
-            print("IOC EXTRACTION")
-            print(iocs)
+            logger.info("IOC extraction complete: %s", {k: len(v) for k, v in iocs.items()})
 
             # ---------------- Geolocation ----------------
 
             geo_results = []
-
-            print("\n========== GEOLOCATION ==========")
 
             for ip in iocs["ips"]:
 
@@ -157,32 +230,54 @@ def upload():
 
                 geo_results.append(location)
 
-                print(ip, "->", location)
+            logger.info("Geolocation complete for %d IP(s)", len(geo_results))
 
             # ---------------- Threat Detection ----------------
 
             alerts = detect_threats(logs)
 
-            print("Detected Alerts:", len(alerts))
+            logger.info("Detected alerts: %d", len(alerts))
 
             # ---------------- Database ----------------
 
             save_logs(logs)
-            print("Logs saved successfully")
+            logger.info("Logs saved successfully")
 
             save_alerts(alerts)
-            print("Alerts saved successfully")
+            logger.info("Alerts saved successfully")
 
             # ---------------- Reports ----------------
 
             generate_report(alerts)
             generate_pdf(alerts)
 
-            print("=" * 50)
+            logger.info("Upload processed successfully: %s", filename)
 
-            return redirect(url_for("dashboard"))
+        except Exception:
+            logger.exception("Upload processing failed for file: %s", filename)
+            return render_template(
+                "upload.html",
+                error=(
+                    "Something went wrong while processing this file. "
+                    "Please check the file format and try again."
+                )
+            )
+
+        return redirect(url_for("dashboard"))
 
     return render_template("upload.html")
+
+
+# ---------------- Upload Too Large Handler ----------------
+
+@app.errorhandler(RequestEntityTooLarge)
+def handle_file_too_large(e):
+    max_mb = app.config["MAX_CONTENT_LENGTH"] // (1024 * 1024)
+    logger.warning("Upload rejected: file exceeds %d MB limit", max_mb)
+    return render_template(
+        "upload.html",
+        error=f"File is too large. Maximum allowed size is {max_mb} MB."
+    ), 413
 
 
 # ---------------- Reports ----------------
